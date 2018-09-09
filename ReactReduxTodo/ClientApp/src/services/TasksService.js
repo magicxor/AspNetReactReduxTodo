@@ -34,16 +34,14 @@ class TasksService {
     }
 
     async deleteTaskAsync(taskId) {
-        const url = `${ENDPOINT}`;
+        const url = `${ENDPOINT}/${taskId}`;
         const response = await fetch(url, {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: taskId
+                'Accept': 'application/json'
+            }
         });
-        if (!response.ok) {
+        if (!response.ok && !(response.status === 404)) {
             throw new Error(`TasksService.deleteTaskAsync failed, HTTP status ${response.status}`);
         }
     }

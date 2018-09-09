@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { Button, FormControl, ProgressBar, Alert } from 'react-bootstrap';
+import { Button, FormControl, Alert } from 'react-bootstrap';
 import { Task } from './Task';
 import * as TaskListSelectors from '../store/taskList/selectors';
 import * as actions from '../store/taskList/actions';
@@ -65,7 +65,7 @@ function mapDispatchToProps(dispatch) {
       }
     },
     addTask: async (taskDescription) => {
-      let task = { id: -1, description: taskDescription };
+      const task = { description: taskDescription };
       dispatch(actions.addTaskStarted(task));
       try {
         const taskId = await tasksService.addTaskAsync(taskDescription);

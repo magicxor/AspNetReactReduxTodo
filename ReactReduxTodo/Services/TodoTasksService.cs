@@ -33,14 +33,16 @@ namespace ReactReduxTodo.Services
             return entityEntry.Entity.Id;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var entity = await _applicationDbContext.TodoTasks.FindAsync(id);
-            if (entity != null)
+            if (entity == null)
             {
-                _applicationDbContext.Remove(entity);
+                return false;
             }
+            _applicationDbContext.Remove(entity);
             await _applicationDbContext.SaveChangesAsync();
+            return true;
         }
     }
 }
