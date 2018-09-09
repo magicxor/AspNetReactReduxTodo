@@ -16,7 +16,7 @@ namespace ReactReduxTodo.Controllers
             _todoTasksService = todoTasksService;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IEnumerable<TodoTask>> List()
         {
             return await _todoTasksService.ListAsync();
@@ -28,14 +28,14 @@ namespace ReactReduxTodo.Controllers
             return await _todoTasksService.GetAsync(id);
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public async Task<int> Add([FromBody] TodoTask todoTask)
         {
             var id = await _todoTasksService.AddAsync(todoTask);
             return id;
         }
 
-        [HttpDelete("")]
+        [HttpDelete]
         public async Task<IActionResult> Delete([FromBody] int id)
         {
             await _todoTasksService.DeleteAsync(id);
