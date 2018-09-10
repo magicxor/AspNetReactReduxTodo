@@ -9,6 +9,12 @@ export function setNewTaskDescription(taskDescription) {
 
 // GET
 
+export function getTasks() {
+    return {
+        type: types.GET_TASKS
+    };
+}
+
 export function getTasksStarted() {
     return {
         type: types.GET_TASKS_STARTED
@@ -30,6 +36,13 @@ export function getTasksFailure(error) {
 }
 
 // ADD
+
+export function addTask(task) {
+    return {
+        type: types.ADD_TASK,
+        task: task
+    };
+}
 
 export function addTaskStarted(task) {
     return {
@@ -53,6 +66,13 @@ export function addTaskFailure(error) {
 }
 
 // DELETE
+
+export function deleteTask(taskId) {
+    return {
+        type: types.DELETE_TASK,
+        taskId: taskId
+    };
+}
 
 export function deleteTaskStarted(taskId) {
     return {

@@ -1,33 +1,40 @@
 ﻿import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
-import * as TaskList from './taskList/reducer';
+import * as TaskList from '../features/taskList/reducer';
+import { sagas } from '../sagas';
 
 export function configureStore(history, initialState) {
-  const reducers = {
-    taskList: TaskList.reducer
-  };
+    const reducers = {
+        taskList: TaskList.reducer
+    };
 
-  const middleware = [
-    thunk,
-    routerMiddleware(history)
-  ];
+    const sagaMiddleware = createSagaMiddleware();
 
-  // In development, use the browser's Redux dev tools extension if installed
-  const enhancers = [];
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
-    enhancers.push(window.devToolsExtension());
-  }
+    const middleware = [
+        sagaMiddleware,
+        routerMiddleware(history)
+    ];
 
-  const rootReducer = combineReducers({
-    ...reducers,
-    routing: routerReducer
-  });
+    // In development, use the browser's Redux dev tools extension if installed
+    const enhancers = [];
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
+        enhancers.push(window.devToolsExtension());
+    }
 
-  return createStore(
-    rootReducer,
-    initialState,
-    compose(applyMiddleware(...middleware), ...enhancers)
-  );
+    const rootReducer = combineReducers({
+        ...reducers,
+        routing: routerReducer
+    });
+
+    const store = createStore(
+        rootReducer,
+        initialState,
+        compose(applyMiddleware(...middleware), ...enhancers)
+    );
+
+    sagas.map(saga => sagaMiddleware.run(saga));
+
+    return store;
 }
