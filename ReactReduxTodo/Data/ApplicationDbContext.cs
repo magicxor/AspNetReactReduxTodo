@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ReactReduxTodo.Entities;
 using ReactReduxTodo.Models;
 
 namespace ReactReduxTodo.Data

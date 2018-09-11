@@ -1,4 +1,4 @@
-﻿namespace ReactReduxTodo.Models
+﻿namespace ReactReduxTodo.Entities
 {
     public class TodoTask
     {
