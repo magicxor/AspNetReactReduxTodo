@@ -5,6 +5,7 @@ Hello world app on the following stack:
   - ASP.NET Core Web API
   - Entity Framework Core
   - Microsoft SQL Server
+  - Open API (Swashbuckle)
 - Front-end
   - React
   - React-Redux
