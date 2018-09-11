@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using ReactReduxTodo.Data;
+using ReactReduxTodo.Extensions;
 using ReactReduxTodo.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -69,6 +70,9 @@ namespace ReactReduxTodo
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseAuthentication();
+
+            // see: https://josephwoodward.co.uk/2017/09/global-exception-handling-asp-net-core-webapi | https://github.com/JosephWoodward/GlobalExceptionHandlerDotNet
+            app.UseGlobalExceptionHandler();
 
             app.UseMvc(routes =>
             {
