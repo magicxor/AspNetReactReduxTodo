@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReactReduxTodo.Dto;
 using ReactReduxTodo.Models;
 using ReactReduxTodo.Services;
 using System.Collections.Generic;
@@ -7,6 +9,8 @@ using System.Threading.Tasks;
 namespace ReactReduxTodo.Controllers
 {
     [Route("api/tasks")]
+    [Produces("application/json")]
+    [ApiController]
     public class TasksController : Controller
     {
         private readonly TodoTasksService _todoTasksService;
@@ -17,38 +21,47 @@ namespace ReactReduxTodo.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<TodoTask>), StatusCodes.Status200OK)]
         public async Task<IEnumerable<TodoTask>> List()
         {
             return await _todoTasksService.ListAsync();
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(TodoTask), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorResult), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<TodoTask>> Get(int id)
         {
             var model = await _todoTasksService.GetAsync(id);
             if (model == null)
             {
-                return NotFound();
+                return NotFound(new ApiErrorResult(StatusCodes.Status404NotFound, "Not found", $"Entity {id} not found"));
             }
             return model;
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Add([FromBody] TodoTask todoTask)
+        [ProducesResponseType(typeof(TodoTaskAddResult), StatusCodes.Status201Created)]
+        public async Task<ActionResult<TodoTaskAddResult>> Add([FromBody] TodoTask todoTask)
         {
             var id = await _todoTasksService.AddAsync(todoTask);
-            return id;
+            var result = new TodoTaskAddResult { Id = id };
+            return CreatedAtAction(nameof(Get), new { id }, result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [ProducesResponseType(typeof(TodoTaskDeleteResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiErrorResult), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<TodoTaskDeleteResult>> Delete(int id)
         {
             var success = await _todoTasksService.DeleteAsync(id);
+            var result = new TodoTaskDeleteResult { Id = id };
+
             if (!success)
             {
-                return NotFound();
+                return NotFound(new ApiErrorResult(StatusCodes.Status404NotFound, "Not found", $"Entity {id} not found"));
             }
-            return Ok();
+            return result;
         }
     }
 }

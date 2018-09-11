@@ -40,8 +40,17 @@ namespace ReactReduxTodo.Services
             {
                 return false;
             }
-            _applicationDbContext.Remove(entity);
-            await _applicationDbContext.SaveChangesAsync();
+
+            try
+            {
+                _applicationDbContext.Remove(entity);
+                await _applicationDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+
             return true;
         }
     }

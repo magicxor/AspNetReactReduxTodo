@@ -29,7 +29,7 @@ class TasksService {
         if (!response.ok) {
             throw new Error(`TasksService.addTaskAsync failed, HTTP status ${response.status}`);
         }
-        const data = await response.text();
+        const data = await response.json();
         return data;
     }
 
