@@ -6,7 +6,8 @@ class TasksService {
         const response = await fetch(url, {
             method: 'GET',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         });
         if (!response.ok) {
@@ -38,7 +39,8 @@ class TasksService {
         const response = await fetch(url, {
             method: 'DELETE',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             }
         });
         if (!response.ok && !(response.status === 404)) {

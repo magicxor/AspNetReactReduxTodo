@@ -11,6 +11,7 @@ namespace ReactReduxTodo.Controllers
 {
     [Route("api/tasks")]
     [Produces("application/json")]
+    [Consumes("application/json")]
     [ApiController]
     public class TasksController : Controller
     {
