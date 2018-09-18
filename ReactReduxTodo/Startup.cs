@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using ReactReduxTodo.Data;
 using ReactReduxTodo.Extensions;
 using ReactReduxTodo.Services;
 using Swashbuckle.AspNetCore.Swagger;
@@ -20,18 +17,13 @@ namespace ReactReduxTodo
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddScoped<TodoTasksService, TodoTasksService>();
+            services.AddTransient<IConfiguration>(provider => Configuration );
 
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -60,7 +52,6 @@ namespace ReactReduxTodo
             debug = true;
 #endif
 
-            app.UseAuthentication();
             app.UseGlobalExceptionHandler();
 
             app.UseSwagger();

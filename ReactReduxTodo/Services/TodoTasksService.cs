@@ -1,58 +1,64 @@
-﻿using ReactReduxTodo.Data;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 using ReactReduxTodo.Entities;
-using ReactReduxTodo.Models;
 
 namespace ReactReduxTodo.Services
 {
     public class TodoTasksService
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly string _connectionString;
 
-        public TodoTasksService(ApplicationDbContext applicationDbContext)
+        public TodoTasksService(IConfiguration configuration)
         {
-            _applicationDbContext = applicationDbContext;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<IList<TodoTask>> ListAsync()
+        public async Task<IEnumerable<TodoTask>> ListAsync()
         {
-            return await _applicationDbContext.TodoTasks.OrderBy(entity => entity.Id).ToListAsync();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryAsync<TodoTask>(
+                    @"SELECT [entity].[Id], [entity].[Description]
+                      FROM [TodoTasks] AS [entity]
+                      ORDER BY [entity].[Id];");
+            }
         }
 
         public async Task<TodoTask> GetAsync(int id)
         {
-            return await _applicationDbContext.TodoTasks.FindAsync(id);
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryFirstAsync<TodoTask>(
+                    @"SELECT TOP 1 [entity].[Id], [entity].[Description]
+                      FROM [TodoTasks] AS [entity]
+                      WHERE Id = @Id;", new {Id = id});
+            }            
         }
 
         public async Task<int> AddAsync(TodoTask todoTask)
         {
-            var entityEntry = await _applicationDbContext.AddAsync(todoTask);
-            await _applicationDbContext.SaveChangesAsync();
-            return entityEntry.Entity.Id;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                return await connection.QueryFirstAsync<int>(
+                    @"INSERT INTO [TodoTasks] ([Description])
+                      VALUES (@Description);
+                      SELECT CAST(SCOPE_IDENTITY() as int);", new {Description = todoTask.Description});
+            }
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var entity = await _applicationDbContext.TodoTasks.FindAsync(id);
-            if (entity == null)
+            using (var connection = new SqlConnection(_connectionString))
             {
-                return false;
+                var count = await connection.QueryFirstAsync<int>(
+                    @"DELETE FROM [TodoTasks]
+                      WHERE [Id] = @Id;
+                      SELECT @@ROWCOUNT;", new {Id = id});
+                return count > 0;
             }
-
-            try
-            {
-                _applicationDbContext.Remove(entity);
-                await _applicationDbContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
