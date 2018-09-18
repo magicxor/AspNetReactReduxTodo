@@ -11,3 +11,16 @@ Hello world app on the following stack:
   - React-Redux
   - Redux-Saga
   - Bootstrap
+
+### Usage
+To run this application in development environment, you should run front-end and back-end projects separately:
+
+- Back-end:
+```
+dotnet run
+```
+- Front-end:
+```
+npm install
+npm start
+```

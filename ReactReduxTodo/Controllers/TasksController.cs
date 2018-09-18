@@ -13,7 +13,7 @@ namespace ReactReduxTodo.Controllers
     [Produces("application/json")]
     [Consumes("application/json")]
     [ApiController]
-    public class TasksController : Controller
+    public class TasksController : ControllerBase
     {
         private readonly TodoTasksService _todoTasksService;
 
