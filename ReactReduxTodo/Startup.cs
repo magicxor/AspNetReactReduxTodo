@@ -79,14 +79,21 @@ namespace ReactReduxTodo
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "react",
+                    template: "app/{*anything}"
+                );
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSpaStaticFiles();
-            app.UseSpa(spa =>
+            app.Map("/app", spaBranch =>
             {
-                spa.Options.SourcePath = "ClientApp/build";
+                spaBranch.UseSpaStaticFiles();
+                spaBranch.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp/build";
+                });
             });
         }
     }

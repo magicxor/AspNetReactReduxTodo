@@ -2,6 +2,7 @@
   "name": "react-redux-todo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/app/",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^16.5.0",
@@ -24,6 +25,11 @@
   },
   "proxy": {
     "/api": {
+      "target": "http://localhost:5000/",
+      "ws": true,
+      "logLevel": "debug"
+    },
+    "/swagger": {
       "target": "http://localhost:5000/",
       "ws": true,
       "logLevel": "debug"

@@ -1,4 +1,4 @@
-﻿const ENDPOINT = 'api/Tasks';
+﻿const ENDPOINT = '/api/Tasks';
 
 class TasksService {
     async getTasksAsync() {
