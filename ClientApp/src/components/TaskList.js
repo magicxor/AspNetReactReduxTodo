@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, FormControl, Alert } from 'react-bootstrap';
+import { FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import { Task } from './Task';
 import * as TaskListSelectors from '../features/taskList/selectors';
 import { setNewTaskDescription, getTasks, addTask } from '../features/taskList/actions';
@@ -19,12 +19,14 @@ class TaskListRaw extends Component {
                         <strong>Error: </strong> {this.props.error}
                     </Alert>
                 </div>
-                <div className="input-group">
-                    <FormControl type="text" placeholder="Task description" value={this.props.newTaskDescription} onChange={(e) => this.props.setNewTaskDescription(e.target.value)} />
-                    <span className="input-group-btn">
-                        <Button bsStyle="primary" onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}>Add</Button>
-                    </span>
-                </div>
+
+                <InputGroup className="mb-3">
+                    <FormControl placeholder="Task description" value={this.props.newTaskDescription} onChange={(e) => this.props.setNewTaskDescription(e.target.value)} />
+                    <InputGroup.Append>
+                        <Button variant="outline-primary" onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}>Add</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+
                 <table className="table table-hover table-striped">
                     <thead>
                         <tr>

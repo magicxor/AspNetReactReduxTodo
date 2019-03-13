@@ -19,16 +19,11 @@ To run this application in development environment, you should run front-end and
 ```
 dotnet run
 ```
-will be availiable on https://localhost:5001/api/[actionName] and https://localhost:5001/swagger
+will be availiable on `http://localhost:5000/api/[actionName]` and `http://localhost:5000/swagger`
 
 - Front-end:
 ```
 npm install
 npm start
 ```
-will be availiable on http://localhost:3000/
-
-To build this application in production mode go to Back-end project directory and run:
-```
-dotnet publish --self-contained -c Release -r win10-x64
-```
+will be availiable on `http://localhost:3000/`

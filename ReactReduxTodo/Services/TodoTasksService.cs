@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ReactReduxTodo.Entities;
-using ReactReduxTodo.Models;
 
 namespace ReactReduxTodo.Services
 {

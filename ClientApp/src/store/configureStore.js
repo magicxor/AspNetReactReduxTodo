@@ -1,6 +1,6 @@
 ﻿import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import * as TaskList from '../features/taskList/reducer';
 import { sagas } from '../sagas';
 
@@ -24,8 +24,8 @@ export function configureStore(history, initialState) {
     }
 
     const rootReducer = combineReducers({
-        ...reducers,
-        routing: routerReducer
+        router: connectRouter(history),
+        ...reducers
     });
 
     const store = createStore(

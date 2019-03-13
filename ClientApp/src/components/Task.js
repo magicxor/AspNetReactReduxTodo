@@ -12,7 +12,7 @@ const TaskRaw = props => (
             {props.data.description}
         </td>
         <td>
-            <Button bsStyle="danger" onClick={() => props.deleteTask(props.data.id)}>Delete</Button>
+            <Button variant="danger" onClick={() => props.deleteTask(props.data.id)}>Delete</Button>
         </td>
     </tr>
 );
