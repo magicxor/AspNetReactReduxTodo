@@ -15,7 +15,7 @@ class TaskListRaw extends Component {
             <div>
                 <h1>Tasks</h1>
                 <div>
-                    <Alert bsStyle="danger" hidden={!this.props.error}>
+                    <Alert variant="danger" hidden={!this.props.error}>
                         <strong>Error: </strong> {this.props.error}
                     </Alert>
                 </div>
