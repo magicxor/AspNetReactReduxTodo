@@ -1,8 +1,8 @@
 ﻿using System.Net;
+using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using ReactReduxTodo.Models;
 
 namespace ReactReduxTodo.Extensions
@@ -21,7 +21,7 @@ namespace ReactReduxTodo.Extensions
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new ApiErrorResult(context.Response.StatusCode, "Error", "Internal server error")));
+                        await context.Response.WriteAsync(JsonSerializer.Serialize(new ApiErrorResult(context.Response.StatusCode, "Error", "Internal server error")));
                     }
                 });
             });
