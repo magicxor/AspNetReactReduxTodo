@@ -12,7 +12,7 @@ export const NavMenu = props => (
     <Navbar.Brand>ReactReduxTodo</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-      <Nav class="navbar-nav flex-column">
+      <Nav className="navbar-nav flex-column">
         <Nav.Link as={NavLink} to="/" exact><FontAwesomeIcon icon='home' /> Home</Nav.Link>
         <Nav.Link as={NavLink} to="/TaskList" exact><FontAwesomeIcon icon='tasks' /> Task list</Nav.Link>
         <Nav.Link as={NavLink} to="/About" exact><FontAwesomeIcon icon='info-circle' /> About</Nav.Link>
