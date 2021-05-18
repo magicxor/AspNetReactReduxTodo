@@ -21,13 +21,13 @@ class TaskListRaw extends Component {
                 </div>
 
                 <InputGroup className="mb-3">
-                    <FormControl placeholder="Task description" value={this.props.newTaskDescription} onChange={(e) => this.props.setNewTaskDescription(e.target.value)} />
+                    <FormControl id="task-description-input" placeholder="Task description" value={this.props.newTaskDescription} onChange={(e) => this.props.setNewTaskDescription(e.target.value)} />
                     <InputGroup.Append>
-                        <Button variant="outline-primary" onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}>Add</Button>
+                        <Button id="task-description-input-submit-btn" variant="outline-primary" onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}>Add</Button>
                     </InputGroup.Append>
                 </InputGroup>
 
-                <table className="table table-hover table-striped">
+                <table id="tasks" className="table table-hover table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>
