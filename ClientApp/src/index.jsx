@@ -8,21 +8,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import * as ConfigureStore from './store/configureStore';
-import { createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
+import { defaultInitialState } from './store/state';
 
 /* eslint-disable no-undef */
 
 // FontAwesome - import and add an icon to the Library
 library.add(faHome);
 
-// Create browser history to use in the Redux store
-const history = createBrowserHistory();
-
 // Get the application-wide store instance, prepopulating with state from the server where available.
-const defaultInitialState = { taskList: { newTaskDescription: '', tasks: [], refreshInProgress: false, error: null } };
 const initialState = window.initialReduxState || defaultInitialState;
-const store = ConfigureStore.configureStore(history, initialState);
+const store = ConfigureStore.configureStore(initialState);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

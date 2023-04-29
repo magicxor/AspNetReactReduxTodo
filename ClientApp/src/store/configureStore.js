@@ -5,7 +5,7 @@ import { sagas } from '../sagas';
 
 /* eslint-disable no-undef */
 
-export function configureStore(history, initialState) {
+export function configureStore(initialState) {
   const rootReducer = combineReducers({
     taskList: TaskListReducer,
   });
