@@ -16,13 +16,15 @@ Hello world app on the following stack:
 To run this application in development environment, you should run front-end and back-end projects separately:
 
 - Back-end:
-```
+```powershell
+sqllocaldb start
+dotnet ef database update --project ReactReduxTodo
 dotnet run
 ```
 will be availiable on `http://localhost:5000/api/[actionName]` and `http://localhost:5000/swagger`
 
 - Front-end:
-```
+```powershell
 npm install
 npm start
 ```

@@ -1,3 +1,3 @@
 export function getTaskListState(state) {
-    return state.taskList;
+  return state.taskList;
 }
