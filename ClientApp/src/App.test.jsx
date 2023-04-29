@@ -8,14 +8,23 @@ import { defaultInitialState } from './store/state';
 
 const store = ConfigureStore.configureStore(defaultInitialState);
 
-test('renders without crashing', () => {
-  render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>,
-  );
+const renderApp = () => render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
+);
+
+test('renders without crashing', async () => {
+  renderApp();
+});
+
+test('renders ReactReduxTodo', async () => {
+  const { getAllByText } = renderApp();
+  const elementsToBeFound = getAllByText(/ReactReduxTodo/);
+  const elementToBeFound = elementsToBeFound.find(e => e);
+  expect(elementToBeFound).toBeInTheDocument();
 });
