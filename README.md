@@ -15,6 +15,10 @@ Hello world app on the following stack:
   - Redux-Saga
   - Bootstrap
 
+
+[demo](https://user-images.githubusercontent.com/8275793/235323620-82afed36-13a2-4118-9f38-0eba9b0845c3.mp4)
+
+
 ### Usage
 To run this application in development environment, you should run front-end and back-end projects separately:
 
