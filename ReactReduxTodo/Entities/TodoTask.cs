@@ -1,8 +1,7 @@
-﻿namespace ReactReduxTodo.Entities
+﻿namespace ReactReduxTodo.Entities;
+
+public class TodoTask
 {
-    public class TodoTask
-    {
-        public int Id { get; set; }
-        public string Description { get; set; }
-    }
+    public int Id { get; set; }
+    public string? Description { get; set; }
 }

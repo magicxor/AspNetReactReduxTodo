@@ -8,43 +8,42 @@ using ReactReduxTodo.Data;
 using ReactReduxTodo.Extensions;
 using ReactReduxTodo.Services;
 
-namespace ReactReduxTodo
+namespace ReactReduxTodo;
+
+public class Startup
 {
-    public class Startup
+    public Startup(IConfiguration configuration)
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        Configuration = configuration;
+    }
 
-        public IConfiguration Configuration { get; }
+    public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddControllers();
+        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddScoped<TodoTasksService, TodoTasksService>();
+        services.AddSwaggerGen(c =>
         {
-            services.AddControllers();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddScoped<TodoTasksService, TodoTasksService>();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactReduxTodo API", Version = "v1" });
-            });
-        }
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactReduxTodo API", Version = "v1" });
+        });
+    }
 
-        public void Configure(IApplicationBuilder app)
+    public void Configure(IApplicationBuilder app)
+    {
+        app.UseRouting();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseEndpoints(endpoints => {
+            endpoints.MapControllers();
+        });
+        app.UseGlobalExceptionHandler();
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
         {
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints => {
-                endpoints.MapControllers();
-            });
-            app.UseGlobalExceptionHandler();
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReactReduxTodo API V1");
-            });
-        }
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReactReduxTodo API V1");
+        });
     }
 }

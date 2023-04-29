@@ -1,9 +1,8 @@
-﻿namespace ReactReduxTodo.Models
+﻿namespace ReactReduxTodo.Models;
+
+public class ApiError
 {
-    public class ApiError
-    {
-        public int Code { get; set; }
-        public string Header { get; set; }
-        public string Message { get; set; }
-    }
+    public int Code { get; set; }
+    public string? Header { get; set; }
+    public string? Message { get; set; }
 }
