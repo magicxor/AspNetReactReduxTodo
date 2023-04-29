@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Run Tests
+      - working-directory: ./ClientApp
         run: |
           npm install
           npm test
