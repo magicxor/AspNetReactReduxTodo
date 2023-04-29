@@ -18,7 +18,9 @@ public class TodoTasksService
 
     public async Task<IList<TodoTask>> ListAsync()
     {
-        return await _applicationDbContext.TodoTasks.OrderBy(entity => entity.Id).ToListAsync();
+        return await _applicationDbContext.TodoTasks
+            .OrderBy(entity => entity.Id)
+            .ToListAsync();
     }
 
     public async Task<TodoTask?> GetAsync(int id)

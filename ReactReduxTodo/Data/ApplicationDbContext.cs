@@ -11,5 +11,5 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
 
-    public DbSet<TodoTask> TodoTasks { get; set; }
+    public DbSet<TodoTask> TodoTasks { get; set; } = null!;
 }
