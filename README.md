@@ -2,7 +2,7 @@
 
 [![Unit Tests](https://github.com/magicxor/AspNetReactReduxTodo/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/magicxor/AspNetReactReduxTodo/actions/workflows/unit-tests.yml)
 
-Hello world app on the following stack:
+A "hello world" app on the following stack:
 
 - Back-end
   - ASP.NET Core Web API
