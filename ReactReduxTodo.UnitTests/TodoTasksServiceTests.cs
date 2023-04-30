@@ -33,16 +33,11 @@ public class TodoTasksServiceTests
     private Respawner? _respawner;
     private DbContextOptions<ApplicationDbContext>? _dbContextOptions;
 
-    private void WriteProgressMessage([StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, params object?[] arg)
+    private static void WriteProgressMessage([StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, params object?[] arg)
     {
         TestContext.Progress.WriteLine(message, arg);
     }
-    
-    private void WriteOutputMessage([StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, params object?[] arg)
-    {
-        TestContext.Out.WriteLine(message, arg);
-    }
-    
+
     [OneTimeSetUp]
     public async Task OneTimeSetUp()
     {
@@ -54,7 +49,7 @@ public class TodoTasksServiceTests
             .WithName(MsSqlDockerContainerName)
             .WithImage(MsSqlDockerImage)
             .WithExposedPort(MsSqlContainerPort)
-            .WithPortBinding(MsSqlContainerPort)
+            .WithPortBinding(MsSqlContainerPort, true)
             .WithEnvironment(new Dictionary<string, string>
             {
                 {"MSSQL_IP_ADDRESS", "0.0.0.0"},
@@ -63,6 +58,11 @@ public class TodoTasksServiceTests
                 {"MSSQL_SA_PASSWORD", MsSqlPassword},
                 {"PATH", "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"},
             })
+            .WithWaitStrategy(Wait
+                .ForUnixContainer()
+                .UntilMessageIsLogged(MsSqlStartLogMessage))
+            .WithAutoRemove(true)
+            .WithCleanUp(true)
             .Build();
         
         _dbContainer.Creating += DbContainerOnCreating;
@@ -72,29 +72,13 @@ public class TodoTasksServiceTests
         _dbContainer.Stopping += DbContainerOnStopping;
         _dbContainer.Stopped += DbContainerOnStopped;
         
-        await _dbContainer.StartAsync();
-
         using (var cancellationTokenSource = new CancellationTokenSource())
         {
-            cancellationTokenSource.CancelAfter(DbStartTimeoutSeconds * 1000);
+            cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(DbStartTimeoutSeconds));
             var cancellationToken = cancellationTokenSource.Token;
-
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                var (stdout, stderr) = await _dbContainer.GetLogsAsync(ct: cancellationToken);
-
-                if (stdout.Contains(MsSqlStartLogMessage))
-                {
-                    break;
-                }
-            }
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new Exception("DB won't start");
-            }
+            await _dbContainer.StartAsync(cancellationToken);
         }
-        
+
         _msSqlHostPort = _dbContainer.GetMappedPublicPort(MsSqlContainerPort);
         _msSqlDockerConnectionString =
             $"Server=tcp:localhost,{_msSqlHostPort};Encrypt=False;Database=AspNetReactReduxTodo;MultipleActiveResultSets=true;User ID=SA;Password={MsSqlPassword}";
