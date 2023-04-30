@@ -16,7 +16,7 @@ A "hello world" app on the following stack:
   - Bootstrap
 
 
-[demo](https://user-images.githubusercontent.com/8275793/235323620-82afed36-13a2-4118-9f38-0eba9b0845c3.mp4)
+https://user-images.githubusercontent.com/8275793/235338371-01c1edec-4343-4567-95ec-3a8c7fb0c085.mp4
 
 
 ### Usage
