@@ -21,7 +21,7 @@ public class TodoTasksServiceTests
 {
     private const string MsSqlDockerImage = "mcr.microsoft.com/mssql/server:2022-latest";
     private const string MsSqlStartLogMessage = "The tempdb database has";
-    private const int DbStartTimeoutSeconds = 20;
+    private static readonly TimeSpan DbStartTimeout = TimeSpan.FromMinutes(5);
     private const string MsSqlPassword = "dev_pass_sm234Jm";
     private const ushort MsSqlContainerPort = 1433;
     private static readonly string MsSqlDockerContainerName = Guid.NewGuid().ToString("D");
@@ -72,9 +72,8 @@ public class TodoTasksServiceTests
         _dbContainer.Stopping += DbContainerOnStopping;
         _dbContainer.Stopped += DbContainerOnStopped;
         
-        using (var cancellationTokenSource = new CancellationTokenSource())
+        using (var cancellationTokenSource = new CancellationTokenSource(DbStartTimeout))
         {
-            cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(DbStartTimeoutSeconds));
             var cancellationToken = cancellationTokenSource.Token;
             await _dbContainer.StartAsync(cancellationToken);
         }
