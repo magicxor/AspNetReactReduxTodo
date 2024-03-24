@@ -35,8 +35,8 @@
     "vite": "^5.2.4",
     "vitest": "^1.4.0"
   },
-  "resolutions": {
-    "rollup": "npm:@rollup/wasm-node"
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.13.0"
   },
   "scripts": {
     "start": "vite",
