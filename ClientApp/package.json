@@ -35,6 +35,9 @@
     "vite": "^5.2.4",
     "vitest": "^1.4.0"
   },
+  "resolutions": {
+    "rollup": "npm:@rollup/wasm-node"
+  },
   "scripts": {
     "start": "vite",
     "dev": "vite",
