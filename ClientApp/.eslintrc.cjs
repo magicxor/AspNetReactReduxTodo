@@ -1,16 +1,21 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    ecmaVersion: 2020,
-  },
+  env: { browser: true, es2020: true },
   extends: [
+    'eslint:recommended',
+    'plugin:react-hooks/recommended',
     'airbnb',
     'airbnb/hooks',
   ],
-  env: {
-    jest: true,
-  },
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
+  plugins: [
+    'react-refresh',
+  ],
   rules: {
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
     'max-len': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/function-component-definition': 'off',
@@ -23,12 +28,16 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     'react/jsx-curly-brace-presence': 'warn',
     'react/self-closing-comp': 'warn',
+    'react/require-default-props': 'off',
+    'import/extensions': 'off',
     'react/prop-types': 'off',
     'react/destructuring-assignment': 'off',
     // imports
     'import/prefer-default-export': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/order': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
     // indents
     'react/jsx-indent': 'off',
     // spaces
@@ -47,4 +56,7 @@ module.exports = {
     'arrow-body-style': 'off',
     'arrow-parens': 'off',
   },
-};
+  parserOptions: {
+    project: './tsconfig.json'
+  }
+}

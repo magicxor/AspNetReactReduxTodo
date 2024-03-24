@@ -1,0 +1,4 @@
+.eslintrc.js
+.eslintrc.cjs
+OidcServiceWorker.js
+OidcTrustedDomains.js

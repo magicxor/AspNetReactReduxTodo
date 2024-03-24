@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const Home = () => (
   <div>
     <h1>ReactReduxTodo</h1>
