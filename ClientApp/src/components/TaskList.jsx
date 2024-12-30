@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import { Task } from './Task';
 import * as TaskListSelectors from '../features/taskList/selectors';
-import { setNewTaskDescription, getTasks, addTask } from '../features/taskList/actions';
+import {
+  setNewTaskDescription,
+  getTasks,
+  addTask,
+} from '../features/taskList/actions';
 
 class TaskListRaw extends Component {
   componentDidMount() {
@@ -16,9 +20,7 @@ class TaskListRaw extends Component {
         <h1>Tasks</h1>
         <div>
           <Alert variant="danger" hidden={!this.props.error}>
-            <strong>Error: </strong>
-            {' '}
-            {this.props.error}
+            <strong>Error: </strong> {this.props.error}
           </Alert>
         </div>
 
@@ -32,7 +34,9 @@ class TaskListRaw extends Component {
           <Button
             id="task-description-input-submit-btn"
             variant="outline-primary"
-            onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}
+            onClick={() =>
+              this.props.addTask({ description: this.props.newTaskDescription })
+            }
           >
             Add
           </Button>
@@ -40,18 +44,16 @@ class TaskListRaw extends Component {
 
         <table id="tasks" className="table table-hover table-striped">
           <thead>
-          <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>#</th>
-          </tr>
+            <tr>
+              <th>ID</th>
+              <th>Description</th>
+              <th>#</th>
+            </tr>
           </thead>
           <tbody>
-          {
-            this.props.tasks.map(task => {
+            {this.props.tasks.map((task) => {
               return <Task key={task.id} data={task} />;
-            })
-          }
+            })}
           </tbody>
         </table>
       </div>

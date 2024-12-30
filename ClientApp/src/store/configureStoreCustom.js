@@ -1,9 +1,10 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { applyMiddleware, combineReducers, compose } from 'redux';
+import { configureStore } from '@reduxjs/ toolkit';
 import { reducer as TaskListReducer } from '../features/taskList/reducer';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from '../sagas';
 
-export function configureStore(initialState) {
+export function configureStoreCustom(initialState) {
   const rootReducer = combineReducers({
     taskList: TaskListReducer,
   });
@@ -14,18 +15,22 @@ export function configureStore(initialState) {
   // In development, use the browser's Redux dev tools extension if installed
   const enhancers = [];
   const isDevelopment = process.env.NODE_ENV === 'development';
-  if (isDevelopment && typeof window !== 'undefined' && window.devToolsExtension) {
+  if (
+    isDevelopment &&
+    typeof window !== 'undefined' &&
+    window.devToolsExtension
+  ) {
     enhancers.push(window.devToolsExtension());
   }
 
-  const store = createStore(
+  const store = configureStore(
     rootReducer,
     initialState,
     compose(applyMiddleware(sagaMiddleware), ...enhancers),
   );
 
   // then run the saga
-  sagas.map(saga => sagaMiddleware.run(saga));
+  sagas.map((saga) => sagaMiddleware.run(saga));
 
   return store;
 }

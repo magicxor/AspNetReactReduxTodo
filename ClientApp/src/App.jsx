@@ -10,32 +10,29 @@ export const App = () => (
     <Routes>
       <Route
         path="/TaskList"
-        element={(
+        element={
           <DashboardLayout>
             <TaskList />
           </DashboardLayout>
-        )}
+        }
       />
       <Route
         path="/About"
-        element={(
+        element={
           <DashboardLayout>
             <About />
           </DashboardLayout>
-        )}
+        }
       />
       <Route
         path="/"
-        element={(
+        element={
           <DashboardLayout>
             <Home />
           </DashboardLayout>
-        )}
+        }
       />
-      <Route
-        path="*"
-        element={(<Navigate to="/" />)}
-      />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </BrowserRouter>
 );

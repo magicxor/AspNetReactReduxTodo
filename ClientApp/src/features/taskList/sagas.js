@@ -21,7 +21,10 @@ function* addTaskAsync(action) {
   const { task } = action;
   yield put(actions.getTasksStarted(task));
   try {
-    const addTaskResult = yield call(tasksService.addTaskAsync, task.description);
+    const addTaskResult = yield call(
+      tasksService.addTaskAsync,
+      task.description,
+    );
     task.id = addTaskResult.id;
     yield put(actions.addTaskSuccess(task));
   } catch (error) {
@@ -48,4 +51,8 @@ function* watchDeleteTask() {
   yield takeEvery(types.DELETE_TASK, deleteTaskAsync);
 }
 
-export const taskListWatcherSagas = [watchGetTasks, watchAddTask, watchDeleteTask];
+export const taskListWatcherSagas = [
+  watchGetTasks,
+  watchAddTask,
+  watchDeleteTask,
+];

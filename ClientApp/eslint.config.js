@@ -1,8 +1,10 @@
 import eslint from '@eslint/js';
-import globals from "globals";
+import globals from 'globals';
 import reactPlugin from 'eslint-plugin-react';
 import hooksPlugin from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import prettierPlugin from 'eslint-plugin-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 const ignore = [
   'build/**',
@@ -11,23 +13,44 @@ const ignore = [
   'public/**',
   'vite.config.ts',
   'OidcServiceWorker.js',
-  'OidcTrustedDomains.js'
+  'OidcTrustedDomains.js',
 ];
+
+const files = ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'];
 
 export default [
   {
-    ...eslint.configs.recommended,
+    files: files,
     ignores: ignore,
+    ...eslint.configs.recommended,
   },
   {
+    files: files,
     ignores: ignore,
+    ...eslintConfigPrettier,
+  },
+  {
+    files: files,
+    ignores: ignore,
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     plugins: {
-      'react': reactPlugin,
+      react: reactPlugin,
       'react-hooks': hooksPlugin,
       'react-refresh': reactRefresh,
+      prettier: prettierPlugin,
+      eslintConfigPrettier: eslintConfigPrettier,
     },
     rules: {
+      ...eslint.configs.recommended.rules,
+      ...reactPlugin.configs.recommended.rules,
       ...hooksPlugin.configs.recommended.rules,
+      ...reactRefresh.configs.recommended.rules,
+      ...prettierPlugin.configs.recommended.rules,
+      'prettier/prettier': 'error',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
@@ -76,11 +99,15 @@ export default [
       parserOptions: {
         project: './tsconfig.json',
         sourceType: 'module',
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
       globals: {
         ...globals.browser,
         ...globals.node,
       },
-    }
+    },
   },
 ];

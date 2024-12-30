@@ -7,9 +7,7 @@ export const DashboardLayout = ({ children }) => (
       <Col sm={3}>
         <NavMenu />
       </Col>
-      <Col sm={9}>
-        {children}
-      </Col>
+      <Col sm={9}>{children}</Col>
     </Row>
   </Container>
 );

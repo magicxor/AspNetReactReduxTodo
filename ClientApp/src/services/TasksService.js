@@ -11,10 +11,11 @@ class TasksService {
       },
     });
     if (!response.ok) {
-      throw new Error(`TasksService.getTasksAsync failed, HTTP status ${response.status}`);
+      throw new Error(
+        `TasksService.getTasksAsync failed, HTTP status ${response.status}`,
+      );
     }
-    const data = await response.json();
-    return data;
+    return await response.json();
   }
 
   async addTaskAsync(taskDescription) {
@@ -28,10 +29,11 @@ class TasksService {
       body: JSON.stringify({ description: taskDescription }),
     });
     if (!response.ok) {
-      throw new Error(`TasksService.addTaskAsync failed, HTTP status ${response.status}`);
+      throw new Error(
+        `TasksService.addTaskAsync failed, HTTP status ${response.status}`,
+      );
     }
-    const data = await response.json();
-    return data;
+    return await response.json();
   }
 
   async deleteTaskAsync(taskId) {
@@ -44,7 +46,9 @@ class TasksService {
       },
     });
     if (!response.ok && !(response.status === 404)) {
-      throw new Error(`TasksService.deleteTaskAsync failed, HTTP status ${response.status}`);
+      throw new Error(
+        `TasksService.deleteTaskAsync failed, HTTP status ${response.status}`,
+      );
     }
   }
 }
