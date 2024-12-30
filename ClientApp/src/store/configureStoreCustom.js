@@ -1,5 +1,4 @@
-import { applyMiddleware, combineReducers, compose } from 'redux';
-import { configureStore } from '@reduxjs/ toolkit';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as TaskListReducer } from '../features/taskList/reducer';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from '../sagas';
@@ -23,7 +22,7 @@ export function configureStoreCustom(initialState) {
     enhancers.push(window.devToolsExtension());
   }
 
-  const store = configureStore(
+  const store = createStore(
     rootReducer,
     initialState,
     compose(applyMiddleware(sagaMiddleware), ...enhancers),
