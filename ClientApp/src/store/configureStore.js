@@ -3,8 +3,6 @@ import { reducer as TaskListReducer } from '../features/taskList/reducer';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from '../sagas';
 
-/* eslint-disable no-undef */
-
 export function configureStore(initialState) {
   const rootReducer = combineReducers({
     taskList: TaskListReducer,
