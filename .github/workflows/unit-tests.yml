@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ matrix.dotnet.version }}
 
@@ -38,7 +38,7 @@ jobs:
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --framework ${{ matrix.dotnet.tfm }} --logger trx --results-directory "TestResults-${{ matrix.dotnet.version }}"
 
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: dotnet-test-results-${{ matrix.dotnet.version }}
