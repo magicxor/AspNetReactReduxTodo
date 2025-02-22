@@ -18,7 +18,7 @@ public class MsSqlContainerManager
 
         var containerBuilder = new MsSqlBuilder()
             .WithName(containerName)
-            .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
+            .WithImage("mcr.microsoft.com/mssql/server:2022-CU17-ubuntu-22.04")
             .WithExposedPort(Defaults.MsSqlPort)
             .WithPassword(Defaults.DbPassword)
             .WithAutoRemove(true)
