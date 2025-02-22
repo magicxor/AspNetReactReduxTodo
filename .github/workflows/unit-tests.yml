@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         dotnet: [
-          { tfm: net8.0, version: '8.0.x' },
+          { tfm: net9.0, version: '9.0.x' },
         ]
     env:
       BUILD_CONFIG: Release
@@ -29,14 +29,24 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet.version }}
 
-    - name: Restore
-      run: dotnet restore $SOLUTION
+    - name: Run tests
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --framework ${{ matrix.dotnet.tfm }} --logger trx --results-directory "TestResults-${{ matrix.dotnet.version }}" /p:CollectCoverage=true /maxcpucount:1
 
-    - name: Build
-      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: dotnet-test-results-${{ matrix.dotnet.version }}
+        path: TestResults-${{ matrix.dotnet.version }}
 
-    - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --no-build --verbosity normal
+    - name: Publish test report
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: dotnet-test-results-${{ matrix.dotnet.version }}
+        path: "**/*.trx"
+        reporter: dotnet-trx
+        fail-on-error: true
 
   frontend-test:
     name: Frontend Tests
