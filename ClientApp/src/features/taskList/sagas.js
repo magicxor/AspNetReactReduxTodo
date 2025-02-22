@@ -51,6 +51,12 @@ function* watchDeleteTask() {
   yield takeEvery(types.DELETE_TASK, deleteTaskAsync);
 }
 
+export {
+  getTasksAsync,
+  addTaskAsync,
+  deleteTaskAsync,
+};
+
 export const taskListWatcherSagas = [
   watchGetTasks,
   watchAddTask,

@@ -9,7 +9,7 @@ on:
 
 jobs:
   dotnet-test:
-    name: run tests
+    name: Backend Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,36 +29,35 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet.version }}
 
-    - name: Display dotnet version
-      run: |
-        echo "matrix dotnet version: ${{ matrix.dotnet.version }}"
-        dotnet --version
+    - name: Restore
+      run: dotnet restore $SOLUTION
 
-    - name: Run tests
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --framework ${{ matrix.dotnet.tfm }} --logger trx --results-directory "TestResults-${{ matrix.dotnet.version }}"
+    - name: Build
+      run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
-    - name: Upload test results
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: dotnet-test-results-${{ matrix.dotnet.version }}
-        path: TestResults-${{ matrix.dotnet.version }}
+    - name: Test
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --no-build --verbosity normal
 
-    - name: Publish test report
-      uses: dorny/test-reporter@v1
-      if: always()
-      with:
-        name: dotnet-test-results-${{ matrix.dotnet.version }}
-        path: "**/*.trx"
-        reporter: dotnet-trx
-        fail-on-error: true
-
-  npm-test:
+  frontend-test:
+    name: Frontend Tests
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Tests
+    defaults:
+      run:
         working-directory: ./ClientApp
-        run: |
-          npm install
-          npm test
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: './ClientApp/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run frontend tests
+      run: npm test
