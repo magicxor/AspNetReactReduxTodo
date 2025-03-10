@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using ReactReduxTodo.Data;
 using ReactReduxTodo.Entities;
 using ReactReduxTodo.Services;
-using ReactReduxTodo.UnitTests.Constants;
-using ReactReduxTodo.UnitTests.Services;
+using ReactReduxTodo.Tests.Integration.Constants;
+using ReactReduxTodo.Tests.Integration.Services;
 using Respawn;
 
-namespace ReactReduxTodo.UnitTests;
+namespace ReactReduxTodo.Tests.Integration;
 
 /// <summary>
 /// This test uses a Docker container to run a Microsoft SQL Server instance.

@@ -1,4 +1,4 @@
-﻿namespace ReactReduxTodo.UnitTests.Constants;
+﻿namespace ReactReduxTodo.Tests.Integration.Constants;
 
 public static class Defaults
 {

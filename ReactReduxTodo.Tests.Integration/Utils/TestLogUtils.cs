@@ -1,4 +1,4 @@
-﻿namespace ReactReduxTodo.UnitTests.Utils;
+﻿namespace ReactReduxTodo.Tests.Integration.Utils;
 
 public static class TestLogUtils
 {
