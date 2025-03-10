@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactReduxTodo", "ReactReduxTodo\ReactReduxTodo.csproj", "{331714CF-8ABD-4134-9537-33529801DB9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactReduxTodo.UnitTests", "ReactReduxTodo.UnitTests\ReactReduxTodo.UnitTests.csproj", "{12EC4B6D-22D0-4E72-9E59-C4FAFC06145E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactReduxTodo.Tests.Integration", "ReactReduxTodo.Tests.Integration\ReactReduxTodo.Tests.Integration.csproj", "{12EC4B6D-22D0-4E72-9E59-C4FAFC06145E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

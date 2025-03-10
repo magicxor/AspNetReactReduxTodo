@@ -1,10 +1,10 @@
 ﻿using DotNet.Testcontainers.Containers;
-using ReactReduxTodo.UnitTests.Constants;
-using ReactReduxTodo.UnitTests.Models;
-using ReactReduxTodo.UnitTests.Utils;
+using ReactReduxTodo.Tests.Integration.Constants;
+using ReactReduxTodo.Tests.Integration.Models;
+using ReactReduxTodo.Tests.Integration.Utils;
 using Testcontainers.MsSql;
 
-namespace ReactReduxTodo.UnitTests.Services;
+namespace ReactReduxTodo.Tests.Integration.Services;
 
 public class MsSqlContainerManager
 {
