@@ -1,6 +1,7 @@
 # AspNetReactReduxTodo
 
 [![Unit Tests](https://github.com/magicxor/AspNetReactReduxTodo/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/magicxor/AspNetReactReduxTodo/actions/workflows/unit-tests.yml)
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fgist.githubusercontent.com%2Fmagicxor%2Fd65b6e3ef87f1cee894fe9aa6032ce81%2Fraw%2FAspNetReactReduxTodo-cobertura-coverage.json)
 
 A "hello world" app on the following stack:
 
