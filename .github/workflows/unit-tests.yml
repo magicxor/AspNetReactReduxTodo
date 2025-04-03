@@ -36,7 +36,13 @@ jobs:
       run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
 
     - name: Test
-      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --no-build --verbosity normal
+      run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --no-build --verbosity normal --framework ${{ matrix.dotnet.tfm }} --logger trx --results-directory "TestResults" /maxcpucount:1 /p:CollectCoverage=true /p:CoverletOutput="../TestResults/" /p:MergeWith="../TestResults/coverage.json" /p:CoverletOutputFormat="cobertura"
+
+    - name: Create Test Coverage Badge
+      uses: gaelgirodon/ci-badges-action@v1
+      with:
+        gist-id: d65b6e3ef87f1cee894fe9aa6032ce81
+        token: ${{ secrets.GIST_AUTH_TOKEN }}
 
   frontend-test:
     name: Frontend Tests
