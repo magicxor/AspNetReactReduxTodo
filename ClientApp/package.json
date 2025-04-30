@@ -36,7 +36,7 @@
     "jsdom": "^26.0.0",
     "prettier": "^3.5.3",
     "redux-saga-test-plan": "^4.0.6",
-    "vite": "^6.2.6",
+    "vite": "^6.3.4",
     "vitest": "^3.0.8"
   },
   "optionalDependencies": {
