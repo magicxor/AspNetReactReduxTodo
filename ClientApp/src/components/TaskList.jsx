@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { FormControl, InputGroup, Button, Alert } from 'react-bootstrap';
 import { Task } from './Task';
 import * as TaskListSelectors from '../features/taskList/selectors';
-import {
-  setNewTaskDescription,
-  getTasks,
-  addTask,
-} from '../features/taskList/actions';
+import { setNewTaskDescription, getTasks, addTask } from '../features/taskList/actions';
 
 class TaskListRaw extends Component {
   componentDidMount() {
@@ -25,19 +21,8 @@ class TaskListRaw extends Component {
         </div>
 
         <InputGroup className="mb-3">
-          <FormControl
-            id="task-description-input"
-            placeholder="Task description"
-            value={this.props.newTaskDescription}
-            onChange={(e) => this.props.setNewTaskDescription(e.target.value)}
-          />
-          <Button
-            id="task-description-input-submit-btn"
-            variant="outline-primary"
-            onClick={() =>
-              this.props.addTask({ description: this.props.newTaskDescription })
-            }
-          >
+          <FormControl id="task-description-input" placeholder="Task description" value={this.props.newTaskDescription} onChange={(e) => this.props.setNewTaskDescription(e.target.value)} />
+          <Button id="task-description-input-submit-btn" variant="outline-primary" onClick={() => this.props.addTask({ description: this.props.newTaskDescription })}>
             Add
           </Button>
         </InputGroup>

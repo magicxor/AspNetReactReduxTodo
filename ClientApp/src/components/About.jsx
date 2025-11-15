@@ -5,7 +5,7 @@ export const About = () => (
       MIT License
       <br />
       <br />
-      Copyright (c) 2018 Ilia Burakov
+      Copyright (c) 2025 Ilia Burakov
       <br />
       <br />
       Permission is hereby granted, free of charge, to any person obtaining a

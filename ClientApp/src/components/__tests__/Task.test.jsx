@@ -7,13 +7,19 @@ import { describe, it, vi, expect } from 'vitest';
 describe('Task', () => {
   const mockTask = {
     id: 1,
-    description: 'Test task'
+    description: 'Test task',
+  };
+
+  const createMockStore = () => {
+    return configureStore({
+      reducer: {
+        taskList: (state = { tasks: [], newTaskDescription: '' }) => state,
+      },
+    });
   };
 
   it('renders task information correctly', () => {
-    const store = configureStore({
-      reducer: {}
-    });
+    const store = createMockStore();
 
     render(
       <Provider store={store}>
@@ -22,7 +28,7 @@ describe('Task', () => {
             <Task data={mockTask} />
           </tbody>
         </table>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('Test task')).toBeInTheDocument();
@@ -32,11 +38,8 @@ describe('Task', () => {
 
   it('calls deleteTask when delete button is clicked', () => {
     const mockDeleteTask = vi.fn();
-    const store = configureStore({
-      reducer: {},
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-    });
-    
+    const store = createMockStore();
+
     store.dispatch = mockDeleteTask;
 
     render(
@@ -46,7 +49,7 @@ describe('Task', () => {
             <Task data={mockTask} />
           </tbody>
         </table>
-      </Provider>
+      </Provider>,
     );
 
     fireEvent.click(screen.getByText('Delete'));

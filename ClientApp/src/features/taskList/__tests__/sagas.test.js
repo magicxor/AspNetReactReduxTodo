@@ -14,9 +14,7 @@ describe('taskList sagas', () => {
 
     it('should handle successful tasks fetch', () => {
       return expectSaga(getTasksAsync)
-        .provide([
-          [matchers.call.fn(tasksService.getTasksAsync), tasks]
-        ])
+        .provide([[matchers.call.fn(tasksService.getTasksAsync), tasks]])
         .put(actions.getTasksStarted())
         .call.fn(tasksService.getTasksAsync)
         .put(actions.getTasksSuccess(tasks))
@@ -25,11 +23,9 @@ describe('taskList sagas', () => {
 
     it('should handle failed tasks fetch', () => {
       const error = new Error('Failed to fetch tasks');
-      
+
       return expectSaga(getTasksAsync)
-        .provide([
-          [matchers.call.fn(tasksService.getTasksAsync), throwError(error)]
-        ])
+        .provide([[matchers.call.fn(tasksService.getTasksAsync), throwError(error)]])
         .put(actions.getTasksStarted())
         .call.fn(tasksService.getTasksAsync)
         .put(actions.getTasksFailure(error))
@@ -44,9 +40,7 @@ describe('taskList sagas', () => {
 
     it('should handle successful task addition', () => {
       return expectSaga(addTaskAsync, { task })
-        .provide([
-          [matchers.call.fn(tasksService.addTaskAsync), addTaskResult]
-        ])
+        .provide([[matchers.call.fn(tasksService.addTaskAsync), addTaskResult]])
         .put(actions.getTasksStarted(task))
         .call.fn(tasksService.addTaskAsync)
         .put(actions.addTaskSuccess(taskWithId))
@@ -55,11 +49,9 @@ describe('taskList sagas', () => {
 
     it('should handle failed task addition', () => {
       const error = new Error('Failed to add task');
-      
+
       return expectSaga(addTaskAsync, { task })
-        .provide([
-          [matchers.call.fn(tasksService.addTaskAsync), throwError(error)]
-        ])
+        .provide([[matchers.call.fn(tasksService.addTaskAsync), throwError(error)]])
         .put(actions.getTasksStarted(task))
         .call.fn(tasksService.addTaskAsync)
         .put(actions.addTaskFailure(error))
@@ -72,9 +64,7 @@ describe('taskList sagas', () => {
 
     it('should handle successful task deletion', () => {
       return expectSaga(deleteTaskAsync, { taskId })
-        .provide([
-          [matchers.call.fn(tasksService.deleteTaskAsync), undefined]
-        ])
+        .provide([[matchers.call.fn(tasksService.deleteTaskAsync), undefined]])
         .put(actions.deleteTaskStarted(taskId))
         .call.fn(tasksService.deleteTaskAsync)
         .put(actions.deleteTaskSuccess(taskId))
@@ -83,11 +73,9 @@ describe('taskList sagas', () => {
 
     it('should handle failed task deletion', () => {
       const error = new Error('Failed to delete task');
-      
+
       return expectSaga(deleteTaskAsync, { taskId })
-        .provide([
-          [matchers.call.fn(tasksService.deleteTaskAsync), throwError(error)]
-        ])
+        .provide([[matchers.call.fn(tasksService.deleteTaskAsync), throwError(error)]])
         .put(actions.deleteTaskStarted(taskId))
         .call.fn(tasksService.deleteTaskAsync)
         .put(actions.deleteTaskFailure(error))

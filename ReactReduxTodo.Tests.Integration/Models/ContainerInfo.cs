@@ -1,3 +1,3 @@
-﻿namespace ReactReduxTodo.Tests.Integration.Models;
+namespace ReactReduxTodo.Tests.Integration.Models;
 
-public record ContainerInfo(ushort Port, string Host);
+internal sealed record ContainerInfo(ushort Port, string Host);
