@@ -15,7 +15,7 @@ describe('taskList reducer', () => {
   it('should handle SET_NEW_TASK_DESCRIPTION', () => {
     const taskDescription = 'New task';
     const action = actions.setNewTaskDescription(taskDescription);
-    
+
     expect(reducer(initialState, action)).toEqual({
       ...initialState,
       newTaskDescription: taskDescription,
@@ -25,7 +25,7 @@ describe('taskList reducer', () => {
   describe('GET_TASKS actions', () => {
     it('should handle GET_TASKS_STARTED', () => {
       const action = actions.getTasksStarted();
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: true,
@@ -39,7 +39,7 @@ describe('taskList reducer', () => {
         { id: 2, description: 'Task 2' },
       ];
       const action = actions.getTasksSuccess(tasks);
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: false,
@@ -51,7 +51,7 @@ describe('taskList reducer', () => {
     it('should handle GET_TASKS_FAILURE', () => {
       const error = new Error('Failed to fetch tasks');
       const action = actions.getTasksFailure(error);
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: false,
@@ -64,7 +64,7 @@ describe('taskList reducer', () => {
     it('should handle ADD_TASK_STARTED', () => {
       const task = { description: 'New task' };
       const action = actions.addTaskStarted(task);
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: true,
@@ -75,7 +75,7 @@ describe('taskList reducer', () => {
     it('should handle ADD_TASK_SUCCESS', () => {
       const task = { id: 1, description: 'New task' };
       const action = actions.addTaskSuccess(task);
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: false,
@@ -87,7 +87,7 @@ describe('taskList reducer', () => {
     it('should handle ADD_TASK_FAILURE', () => {
       const error = new Error('Failed to add task');
       const action = actions.addTaskFailure(error);
-      
+
       expect(reducer(initialState, action)).toEqual({
         ...initialState,
         refreshInProgress: false,
@@ -108,7 +108,7 @@ describe('taskList reducer', () => {
     it('should handle DELETE_TASK_STARTED', () => {
       const taskId = 1;
       const action = actions.deleteTaskStarted(taskId);
-      
+
       expect(reducer(stateWithTasks, action)).toEqual({
         ...stateWithTasks,
         refreshInProgress: true,
@@ -119,19 +119,19 @@ describe('taskList reducer', () => {
     it('should handle DELETE_TASK_SUCCESS', () => {
       const taskId = 1;
       const action = actions.deleteTaskSuccess(taskId);
-      
+
       expect(reducer(stateWithTasks, action)).toEqual({
         ...stateWithTasks,
         refreshInProgress: false,
         error: null,
-        tasks: stateWithTasks.tasks.filter(task => task.id !== taskId),
+        tasks: stateWithTasks.tasks.filter((task) => task.id !== taskId),
       });
     });
 
     it('should handle DELETE_TASK_FAILURE', () => {
       const error = new Error('Failed to delete task');
       const action = actions.deleteTaskFailure(error);
-      
+
       expect(reducer(stateWithTasks, action)).toEqual({
         ...stateWithTasks,
         refreshInProgress: false,

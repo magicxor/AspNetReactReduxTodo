@@ -14,8 +14,7 @@ export function configureStoreCustom(initialState) {
   const store = configureStore({
     reducer: rootReducer,
     preloadedState: initialState,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
     devTools: isDevelopment,
   });
 

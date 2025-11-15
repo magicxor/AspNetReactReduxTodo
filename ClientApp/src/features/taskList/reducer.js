@@ -34,10 +34,7 @@ export const reducer = (srcState, action) => {
         ...state,
         refreshInProgress: false,
         error: null,
-        tasks: [
-          ...state.tasks,
-          { id: action.task.id, description: action.task.description },
-        ],
+        tasks: [...state.tasks, { id: action.task.id, description: action.task.description }],
       };
     case actionTypes.ADD_TASK_FAILURE:
       return {

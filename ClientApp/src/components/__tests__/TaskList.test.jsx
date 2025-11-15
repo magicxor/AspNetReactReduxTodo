@@ -9,29 +9,27 @@ describe('TaskList', () => {
     taskList: {
       tasks: [
         { id: 1, description: 'Test task 1' },
-        { id: 2, description: 'Test task 2' }
+        { id: 2, description: 'Test task 2' },
       ],
       newTaskDescription: '',
-      error: null
-    }
+      error: null,
+    },
   };
 
   let store;
-  let mockGetTasks;
   let mockSetNewTaskDescription;
   let mockAddTask;
 
   beforeEach(() => {
     vi.useFakeTimers();
-    mockGetTasks = vi.fn();
     mockSetNewTaskDescription = vi.fn();
     mockAddTask = vi.fn();
 
     store = configureStore({
       reducer: {
-        taskList: (state = initialState.taskList) => state
+        taskList: (state = initialState.taskList) => state,
       },
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+      middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     });
 
     store.dispatch = vi.fn();
@@ -45,7 +43,7 @@ describe('TaskList', () => {
     render(
       <Provider store={store}>
         <TaskList />
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('Tasks')).toBeInTheDocument();
@@ -57,7 +55,7 @@ describe('TaskList', () => {
     render(
       <Provider store={store}>
         <TaskList />
-      </Provider>
+      </Provider>,
     );
 
     // Advance timers to trigger componentDidMount
@@ -69,7 +67,7 @@ describe('TaskList', () => {
     render(
       <Provider store={store}>
         <TaskList setNewTaskDescription={mockSetNewTaskDescription} />
-      </Provider>
+      </Provider>,
     );
 
     const input = screen.getByPlaceholderText('Task description');
@@ -81,7 +79,7 @@ describe('TaskList', () => {
     render(
       <Provider store={store}>
         <TaskList addTask={mockAddTask} newTaskDescription="New task" />
-      </Provider>
+      </Provider>,
     );
 
     const addButton = screen.getByText('Add');
@@ -94,20 +92,20 @@ describe('TaskList', () => {
       ...initialState,
       taskList: {
         ...initialState.taskList,
-        error: 'Test error message'
-      }
+        error: 'Test error message',
+      },
     };
 
     const errorStore = configureStore({
       reducer: {
-        taskList: (state = errorState.taskList) => state
-      }
+        taskList: (state = errorState.taskList) => state,
+      },
     });
 
     render(
       <Provider store={errorStore}>
         <TaskList />
-      </Provider>
+      </Provider>,
     );
 
     const errorAlert = screen.getByRole('alert');

@@ -2,11 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Nav, Navbar } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faHome,
-  faTasks,
-  faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faTasks, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faHome, faTasks, faInfoCircle);
 
