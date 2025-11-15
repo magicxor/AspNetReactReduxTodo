@@ -4,7 +4,7 @@ using ReactReduxTodo.Entities;
 
 namespace ReactReduxTodo.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public sealed class ApplicationDbContext : IdentityDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

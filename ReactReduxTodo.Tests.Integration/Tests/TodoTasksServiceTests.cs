@@ -17,7 +17,7 @@ namespace ReactReduxTodo.Tests.Integration.Tests;
 /// </summary>
 [TestFixture]
 [Parallelizable(scope: ParallelScope.Fixtures)]
-public class TodoTasksServiceTests
+public sealed class TodoTasksServiceTests
 {
     private RespawnableContextManager<ApplicationDbContext>? _contextManager;
 
@@ -59,7 +59,7 @@ public class TodoTasksServiceTests
     public async Task TestListAsync(CancellationToken cancellationToken)
     {
         using var seedResult = await Seed(cancellationToken);
-        var dbContext = seedResult.AppFactory.Services .GetRequiredService<ApplicationDbContext>();
+        var dbContext = seedResult.AppFactory.Services.GetRequiredService<ApplicationDbContext>();
 
         var expectedTasks = new List<TodoTask>
         {
@@ -72,10 +72,10 @@ public class TodoTasksServiceTests
 
         var todoTasksService = new TodoTasksService(dbContext);
         var tasks = await todoTasksService.ListAsync(cancellationToken);
-        
+
         Assert.That(tasks, Has.Count.EqualTo(expectedTasks.Count));
         Assert.That(tasks, Is.EquivalentTo(expectedTasks)
-            .Using<TodoTask,TodoTask>((act, exp) => act.Description == exp.Description));
+            .Using<TodoTask, TodoTask>((act, exp) => act.Description == exp.Description));
     }
 
     [CancelAfter(TestDefaults.TestTimeout)]
@@ -83,7 +83,7 @@ public class TodoTasksServiceTests
     public async Task TestGetAsync(CancellationToken cancellationToken)
     {
         using var seedResult = await Seed(cancellationToken);
-        var dbContext = seedResult.AppFactory.Services .GetRequiredService<ApplicationDbContext>();
+        var dbContext = seedResult.AppFactory.Services.GetRequiredService<ApplicationDbContext>();
 
         var expectedTask = new TodoTask { Description = "abc" };
         await dbContext.TodoTasks.AddAsync(expectedTask, cancellationToken);
@@ -91,9 +91,9 @@ public class TodoTasksServiceTests
 
         var todoTasksService = new TodoTasksService(dbContext);
         var task = await todoTasksService.GetAsync(expectedTask.Id, cancellationToken);
-        
+
         Assert.That(task, Is.EqualTo(expectedTask)
-            .Using<TodoTask,TodoTask>((act, exp) => act.Description == exp.Description));
+            .Using<TodoTask, TodoTask>((act, exp) => act.Description == exp.Description));
     }
 
     [CancelAfter(TestDefaults.TestTimeout)]
@@ -101,19 +101,19 @@ public class TodoTasksServiceTests
     public async Task TestAddAsync(CancellationToken cancellationToken)
     {
         using var seedResult = await Seed(cancellationToken);
-        var dbContext = seedResult.AppFactory.Services .GetRequiredService<ApplicationDbContext>();
+        var dbContext = seedResult.AppFactory.Services.GetRequiredService<ApplicationDbContext>();
 
         var expectedTask = new TodoTask { Description = "abc" };
 
         var todoTasksService = new TodoTasksService(dbContext);
         var taskId = await todoTasksService.AddAsync(expectedTask, cancellationToken);
-        
+
         Assert.That(taskId, Is.GreaterThan(0));
-        
+
         var actualTask = await dbContext.TodoTasks.FindAsync([taskId], cancellationToken: cancellationToken);
-        
+
         Assert.That(actualTask, Is.EqualTo(expectedTask)
-            .Using<TodoTask,TodoTask>((act, exp) => act.Description == exp.Description));
+            .Using<TodoTask, TodoTask>((act, exp) => act.Description == exp.Description));
 
         var tasks = await dbContext.TodoTasks.ToListAsync(cancellationToken: cancellationToken);
         Assert.That(tasks, Has.Count.EqualTo(1));
@@ -124,17 +124,17 @@ public class TodoTasksServiceTests
     public async Task TestDeleteAsync(CancellationToken cancellationToken)
     {
         using var seedResult = await Seed(cancellationToken);
-        var dbContext = seedResult.AppFactory.Services .GetRequiredService<ApplicationDbContext>();
+        var dbContext = seedResult.AppFactory.Services.GetRequiredService<ApplicationDbContext>();
 
         var expectedTask = new TodoTask { Description = "abc" };
         await dbContext.TodoTasks.AddAsync(expectedTask, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
-        
+
         var todoTasksService = new TodoTasksService(dbContext);
         var result = await todoTasksService.DeleteAsync(expectedTask.Id, cancellationToken);
-        
+
         Assert.That(result, Is.True);
-        
+
         var tasks = await dbContext.TodoTasks.ToListAsync(cancellationToken: cancellationToken);
         Assert.That(tasks, Has.Count.EqualTo(0));
     }

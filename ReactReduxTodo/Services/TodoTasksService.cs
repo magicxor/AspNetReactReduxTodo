@@ -8,7 +8,7 @@ using ReactReduxTodo.Entities;
 
 namespace ReactReduxTodo.Services;
 
-public class TodoTasksService
+public sealed class TodoTasksService
 {
     private readonly ApplicationDbContext _applicationDbContext;
 
@@ -41,7 +41,7 @@ public class TodoTasksService
         var rowsDeleted = await _applicationDbContext.TodoTasks
             .Where(t => t.Id == id)
             .ExecuteDeleteAsync(cancellationToken: cancellationToken);
-        
+
         return rowsDeleted > 0;
     }
 }
