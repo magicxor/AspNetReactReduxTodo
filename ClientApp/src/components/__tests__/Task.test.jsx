@@ -10,10 +10,16 @@ describe('Task', () => {
     description: 'Test task',
   };
 
-  it('renders task information correctly', () => {
-    const store = configureStore({
-      reducer: {},
+  const createMockStore = () => {
+    return configureStore({
+      reducer: {
+        taskList: (state = { tasks: [], newTaskDescription: '' }) => state,
+      },
     });
+  };
+
+  it('renders task information correctly', () => {
+    const store = createMockStore();
 
     render(
       <Provider store={store}>
@@ -32,10 +38,7 @@ describe('Task', () => {
 
   it('calls deleteTask when delete button is clicked', () => {
     const mockDeleteTask = vi.fn();
-    const store = configureStore({
-      reducer: {},
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-    });
+    const store = createMockStore();
 
     store.dispatch = mockDeleteTask;
 
