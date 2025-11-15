@@ -1,4 +1,4 @@
-﻿using DotNet.Testcontainers.Containers;
+using DotNet.Testcontainers.Containers;
 using ReactReduxTodo.Tests.Integration.Constants;
 using ReactReduxTodo.Tests.Integration.Models;
 using ReactReduxTodo.Tests.Integration.Utils;
@@ -6,33 +6,33 @@ using Testcontainers.MsSql;
 
 namespace ReactReduxTodo.Tests.Integration.Services;
 
-public class MsSqlContainerManager
+internal sealed class DbContainerManager
 {
     private IContainer? _container;
 
     public async Task<ContainerInfo> StartAsync()
     {
-        TestLogUtils.WriteProgressMessage("Starting the MsSql container...");
+        TestLogUtils.WriteProgressMessage("Starting the DB container...");
 
-        var containerName = "arrtodo_integration_test_mssql_" + Guid.NewGuid().ToString("D");
+        var containerName = "ReactReduxTodo_test_db_" + Guid.NewGuid().ToString("D");
 
         var containerBuilder = new MsSqlBuilder()
             .WithName(containerName)
-            .WithImage("mcr.microsoft.com/mssql/server:2022-CU17-ubuntu-22.04")
-            .WithExposedPort(Defaults.MsSqlPort)
-            .WithPassword(Defaults.DbPassword)
+            .WithImage("mcr.microsoft.com/mssql/server:2022-CU18-ubuntu-22.04")
+            .WithExposedPort(TestDefaults.DbPort)
+            .WithPassword(TestDefaults.DbPassword)
             .WithAutoRemove(true)
             .WithCleanUp(true);
 
         _container = containerBuilder.Build();
 
-        using (var cancellationTokenSource = new CancellationTokenSource(Defaults.MsSqlStartTimeout))
+        using (var cancellationTokenSource = new CancellationTokenSource(TestDefaults.DbStartTimeout))
         {
             var cancellationToken = cancellationTokenSource.Token;
             await _container.StartAsync(cancellationToken);
         }
 
-        var containerHostPort = _container.GetMappedPublicPort(Defaults.MsSqlPort);
+        var containerHostPort = _container.GetMappedPublicPort(TestDefaults.DbPort);
 
         TestLogUtils.WriteProgressMessage($"The MsSql container started successfully ({containerName})");
 
@@ -45,7 +45,7 @@ public class MsSqlContainerManager
 
         if (_container != null)
         {
-            _ = Task.Run(() => _container?.DisposeAsync(), ct);
+            _ = Task.Run(() => _container.DisposeAsync(), ct);
         }
 
         return Task.CompletedTask;
