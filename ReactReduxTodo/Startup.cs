@@ -10,7 +10,7 @@ using ReactReduxTodo.Services;
 
 namespace ReactReduxTodo;
 
-public class Startup
+public sealed class Startup
 {
     public Startup(IConfiguration configuration)
     {
@@ -29,9 +29,7 @@ public class Startup
         services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddScoped<TodoTasksService, TodoTasksService>();
         services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactReduxTodo API", Version = "v1" });
-        });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactReduxTodo API", Version = "v1" }));
     }
 
     public void Configure(IApplicationBuilder app)
@@ -39,14 +37,11 @@ public class Startup
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints => {
-            endpoints.MapControllers();
-        });
+        app.UseEndpoints(endpoints =>
+            endpoints.MapControllers());
         app.UseGlobalExceptionHandler();
         app.UseSwagger();
         app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReactReduxTodo API V1");
-        });
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReactReduxTodo API V1"));
     }
 }

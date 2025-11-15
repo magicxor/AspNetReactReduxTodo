@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace ReactReduxTodo.Pages;
 
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public class ErrorModel : PageModel
+public sealed class ErrorModel : PageModel
 {
     public string? RequestId { get; set; }
 

@@ -18,7 +18,7 @@ jobs:
         ]
     env:
       BUILD_CONFIG: Release
-      SOLUTION: ReactReduxTodo.sln
+      SOLUTION: ReactReduxTodo.slnx
 
     steps:
     - name: Checkout

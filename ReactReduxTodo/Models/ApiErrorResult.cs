@@ -2,7 +2,7 @@
 
 namespace ReactReduxTodo.Models;
 
-public class ApiErrorResult
+public sealed class ApiErrorResult
 {
     public IEnumerable<ApiError> Errors { get; set; }
 

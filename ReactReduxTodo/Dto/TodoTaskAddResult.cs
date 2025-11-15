@@ -1,6 +1,6 @@
 ﻿namespace ReactReduxTodo.Dto;
 
-public class TodoTaskAddResult
+public sealed class TodoTaskAddResult
 {
     public int Id { get; set; }
 }

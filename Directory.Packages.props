@@ -1,0 +1,39 @@
+<Project>
+  <PropertyGroup Condition=" '$(MSBuildProjectExtension)' != '.dcproj'">
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Global Analyzers -->
+    <GlobalPackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" Version="3.3.4" />
+    <GlobalPackageReference Include="StyleCop.Analyzers" Version="1.1.118" />
+    <GlobalPackageReference Include="Roslynator.Analyzers" Version="4.14.1" />
+    <GlobalPackageReference Include="Roslynator.Formatting.Analyzers" Version="4.14.1" />
+    <GlobalPackageReference Include="SonarAnalyzer.CSharp" Version="10.15.0.120848" />
+    <GlobalPackageReference Include="AsyncFixer" Version="1.6.0" />
+    <GlobalPackageReference Include="ErrorProne.NET.CoreAnalyzers" Version="0.7.0-beta.1" />
+    <GlobalPackageReference Include="SharpSource" Version="1.27.1" />
+    <!-- Normal packages -->
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="coverlet.msbuild" Version="6.0.4" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.0.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+    <PackageVersion Include="Nito.AsyncEx.Coordination" Version="5.1.2" />
+    <PackageVersion Include="NLog.Web.AspNetCore" Version="6.1.0" />
+    <PackageVersion Include="NUnit" Version="4.4.0" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.11.2" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.2.0" />
+    <PackageVersion Include="Respawn" Version="6.2.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.0.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="10.0.1" />
+    <PackageVersion Include="Testcontainers" Version="4.8.1" />
+    <PackageVersion Include="Testcontainers.MsSql" Version="4.8.1" />
+  </ItemGroup>
+</Project>

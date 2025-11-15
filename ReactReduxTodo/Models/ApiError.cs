@@ -1,6 +1,6 @@
 ﻿namespace ReactReduxTodo.Models;
 
-public class ApiError
+public sealed class ApiError
 {
     public int Code { get; set; }
     public string? Header { get; set; }
