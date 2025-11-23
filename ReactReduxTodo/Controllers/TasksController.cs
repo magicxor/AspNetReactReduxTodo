@@ -49,7 +49,7 @@ public sealed class TasksController : ControllerBase
         var id = await _todoTasksService.AddAsync(todoTask, cancellationToken);
         var result = new TodoTaskAddResult { Id = id };
 
-        var location = Url.Action(nameof(Add), new { id });
+        var location = Url.Action(nameof(Get), new { id });
         return TypedResults.Created(location, result);
     }
 

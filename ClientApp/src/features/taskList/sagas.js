@@ -19,7 +19,7 @@ function* watchGetTasks() {
 
 function* addTaskAsync(action) {
   const { task } = action;
-  yield put(actions.getTasksStarted(task));
+  yield put(actions.addTaskStarted(task));
   try {
     const addTaskResult = yield call(tasksService.addTaskAsync, task.description);
     const updatedTask = { ...task, id: addTaskResult.id };

@@ -41,7 +41,7 @@ describe('taskList sagas', () => {
     it('should handle successful task addition', () => {
       return expectSaga(addTaskAsync, { task })
         .provide([[matchers.call.fn(tasksService.addTaskAsync), addTaskResult]])
-        .put(actions.getTasksStarted(task))
+        .put(actions.addTaskStarted(task))
         .call.fn(tasksService.addTaskAsync)
         .put(actions.addTaskSuccess(taskWithId))
         .run();
@@ -52,7 +52,7 @@ describe('taskList sagas', () => {
 
       return expectSaga(addTaskAsync, { task })
         .provide([[matchers.call.fn(tasksService.addTaskAsync), throwError(error)]])
-        .put(actions.getTasksStarted(task))
+        .put(actions.addTaskStarted(task))
         .call.fn(tasksService.addTaskAsync)
         .put(actions.addTaskFailure(error))
         .run();
