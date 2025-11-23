@@ -17,9 +17,9 @@ const ignore = [
   'OidcTrustedDomains.js',
 ];
 
-const files = ['src/*.js', 'src/*.jsx', 'src/*.ts', 'src/*.tsx'];
+const files = ['src/**/*.{js,jsx,ts,tsx}'];
 
-const testFiles = ['tests/*.js', 'tests/*.ts', 'src/**/__tests__/*.{js,jsx,ts,tsx}'];
+const testFiles = ['tests/**/*.{js,jsx,ts,tsx}', 'src/**/__tests__/*.{js,jsx,ts,tsx}'];
 
 export default [
   {
