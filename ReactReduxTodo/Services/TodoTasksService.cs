@@ -20,6 +20,7 @@ public sealed class TodoTasksService
     public async Task<IList<TodoTask>> ListAsync(CancellationToken cancellationToken)
     {
         return await _applicationDbContext.TodoTasks
+            .AsNoTracking()
             .OrderBy(entity => entity.Id)
             .ToListAsync(cancellationToken: cancellationToken);
     }

@@ -27,7 +27,7 @@ public sealed class Startup
                 Configuration.GetConnectionString("DefaultConnection"),
                 ContextConfiguration.SqlServerOptionsAction));
         services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
-        services.AddScoped<TodoTasksService, TodoTasksService>();
+        services.AddScoped<TodoTasksService>();
         services.AddSwaggerGen(c =>
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "ReactReduxTodo API", Version = "v1" }));
     }
