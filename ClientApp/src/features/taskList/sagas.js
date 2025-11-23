@@ -22,8 +22,8 @@ function* addTaskAsync(action) {
   yield put(actions.getTasksStarted(task));
   try {
     const addTaskResult = yield call(tasksService.addTaskAsync, task.description);
-    task.id = addTaskResult.id;
-    yield put(actions.addTaskSuccess(task));
+    const updatedTask = { ...task, id: addTaskResult.id };
+    yield put(actions.addTaskSuccess(updatedTask));
   } catch (error) {
     yield put(actions.addTaskFailure(error));
   }
